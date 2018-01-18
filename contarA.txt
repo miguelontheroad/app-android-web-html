@@ -1,0 +1,21 @@
+Inicio
+cadena="Siempre se puede aprender Java"
+cont=0
+Codigo
+Leer cadena(posicion)
+	Mientras cadena(posicion)<>null
+		si cadena(posicion)=a
+			cont=cont+1
+		fin si
+	Fin mientras
+
+Inicio
+cadena="Siempre se puede aprender Java"
+cont=0
+Codigo
+Leer cadena(posicion)
+	Mientras cadena(posicion)<>null
+		si cadena(posicion)=a
+			cont=cont+1
+		fin si
+	Fin mientras
