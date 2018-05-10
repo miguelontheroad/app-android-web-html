@@ -1,0 +1,32 @@
+/*Listado de clientes con sus datos bancarios*/
+
+SELECT cliente.nombre, cliente.nif, cuenta_bancaria.banco, cuenta_bancaria.sucursal, cuenta_bancaria.digito_control, cuenta_bancaria.numero_cuenta
+FROM cliente
+JOIN cuenta_bancaria on cuenta_bancaria.idcuenta_bancaria=cliente.id_cuenta_bancaria;
+
+/*Listado de pedidos de un cliente*/
+
+SELECT cliente.idcliente, cliente.nombre, pedido.idpedido, pedido.codigo
+FROM pedido
+JOIN cliente on pedido.id_cliente=cliente.idcliente
+order by cliente.idcliente;
+
+/*Listado de pedidos con el importe total*/
+
+SELECT tabla.idpedido, tabla.codigo, producto.nombre, tabla.cantidad*producto.precio as importe
+FROM
+(SELECT pedido.idpedido, pedido.codigo, detalles.cantidad, detalles.id_producto
+FROM pedido
+JOIN detalles ON detalles.id_pedido=pedido.idpedido) as tabla
+JOIN producto ON producto.idproducto=tabla.id_producto
+group by idpedido;
+
+/*Listado de clientes junto a importe total (INCOMPLETO) */
+
+SELECT cliente.idcliente, cliente.nombre, pedido.idpedido, pedido.codigo, detalles.cantidad*producto.precio as importe
+FROM pedido
+JOIN cliente on pedido.id_cliente=cliente.idcliente
+JOIN detalles on detalles.id_pedido=pedido.idpedido
+JOIN producto on producto.idproducto=detalles.id_producto
+order by idcliente;
+

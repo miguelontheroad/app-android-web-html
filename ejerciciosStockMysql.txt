@@ -1,0 +1,132 @@
+﻿QUERYS EJERCICIO STOCK ALMACEN
+
+/* El stock de cada producto en cada almacén */
+
+
+SELECT almacen.idalmacen, producto.idproducto,
+
+(select cantidad from stock where stock.id_stock_almacen = almacen.idalmacen
+
+and stock.id_stock_producto = producto.idproducto) as cant 
+
+FROM almacen, producto
+
+order by almacen.idalmacen, producto.idproducto;
+
+
+
+
+/* Listado de almacenes y cantidad de productos distintos */
+
+select id_stock_almacen, count(id_stock_producto)
+
+from stock
+
+group by id_stock_almacen;
+
+
+
+
+
+/*Mostrar para cada almacen el producto que tiene más cantidad*/
+
+
+select almacen.idalmacen, 
+
+(select nombre from stock join producto
+
+on producto.idproducto=stock.id_stock_product
+o
+where stock.id_stock_almacen=almacen.idalmacen
+
+order by cantidad desc limit 1) as nom, 
+
+max(stock.cantidad)
+
+from almacen
+
+join stock on stock.id_stock_almacen=almacen.idalmacen
+
+join producto on producto.idproducto=stock.id_stock_producto
+
+group by almacen.idalmacen;
+
+
+
+
+/*Mostrar el precio en productos de cada almacén*/
+
+SELECT id_stock_almacen,
+sum(precio*cantidad)
+
+FROM stock
+join producto on producto.idproducto=stock.id_stock_producto
+
+group by id_stock_almacen;
+
+
+
+
+/con el nombre de los productos (pro)/
+
+SELECT id_stock_almacen, GROUP_CONCAT(producto.nombre, ','),
+sum(precio*cantidad)
+FROM stock
+join producto on producto.idproducto=stock.id_stock_producto
+group by id_stock_almacen;
+
+
+
+
+/*Mostrar por empresa el importe en productos*/
+
+
+
+SELECT empresa.nombre, sum(producto.precio*stock.cantidad)
+
+FROM empresa
+
+JOIN almacen on almacen.id_empresa=empresa.idempresa 
+
+JOIN stock on almacen.idalmacen=stock.id_stock_almacen 
+
+JOIN producto on producto.idproducto=stock.id_stock_producto 
+group by empresa.idempresa;
+
+
+
+
+
+/* Mostrar para cada almacen los productos en los que no hay stock */
+
+SELECT * 
+FROM
+
+(SELECT almacen.idalmacen, producto.idproducto,
+
+(select cantidad from stock where stock.id_stock_almacen = almacen.idalmacen
+and stock.id_stock_producto = producto.idproducto) as cant 
+
+FROM almacen, producto) as TABLA
+
+WHERE cant is null or cant=0;
+
+
+
+/*Mostrar el precio del producto más caro que tiene en sus almacenes cada empresa*/
+
+SELECT empresa.idempresa, 
+MAX(producto.precio)
+
+FROM empresa
+
+JOIN almacen ON almacen.id_empresa=empresa.idempresa
+
+JOIN stock ON stock.id_stock_almacen=almacen.idalmacen
+
+JOIN producto ON producto.idproducto=stock.id_stock_producto
+
+GROUP BY empresa.idempresa;
+
+
+/* Mostrar por empresa la cantidad de productos que tiene del producto de mayor precio  */

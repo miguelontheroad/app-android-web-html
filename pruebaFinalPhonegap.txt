@@ -1,0 +1,59 @@
+﻿PRUEBA FINAL MÓDULO PHONEGAP
+
+Abrir programa Node.js para trabajar por línea de comandos
+Creamos un nuevo proyecto de Cordova con el siguiente comando:
+">cordova create" 
++ "PruebaFinale" (carpeta que va a contener el proyecto) 
++ "io.cordova.finale" (identificador único) 
++ "NotasPlus" (nombre de la App)
+En resúmen: ">cordova create PruebaFinal io.cordova.finale NotasPlus"
+
+Cordova crea la carpeta del proyecto ("PruebaFinale")
+
+Dentro de esta carpeta encontramos la carpeta "www" que incluye un archivo "index.html" y las carpetas "js", "css" e "img".
+
+Copiamos la carpeta que importamos en "PruebaFinale" y elegimos "mover y reemplazar" para sobreescribir los originales creados por cordova
+con los que hemos importado.
+
+Podemos acceder a trabajar con nuestro nuevo proyecto con el comando 
+"C:\Users\usuari\cd PruebaFinale"
+
+Para añadir la plataforma web usamos el comando
+"C:\Users\usuari\PruebaFinale>cordova platform add browser". 
+
+Cordova crea la plataforma en la carpeta del proyecto e instala el plugin whitelist.
+
+Para poner en marcha la plataforma servidor y poder ver nuestra app en el navegador 
+escribimos el comando
+"C:\Users\usuari\PruebaFinale>cordova serve browser".
+
+
+
+BUGS
+----
+
+En el archivo "index.html" corregir enlace a librería jquery.
+
+
+No se guardan las notas en el localStorage. En "myfuncion" hay que sustituir '#post-project-from' por '#post-project-form'.
+
+
+
+En la función postProyect, sustituir "project-name" por "project-description".
+
+
+
+En la función pintarProyectos, sustituir en el for "j=1" por "j=0".
+
+ 
+En la función "renderSearchView" falta declarar la variable pTemplate: "var pTemplate = null;".
+
+
+
+
+
+
+
+
+
+

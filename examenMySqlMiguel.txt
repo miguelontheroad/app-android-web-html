@@ -1,0 +1,78 @@
+CREATE SCHEMA `examen_miguel` ;
+
+/*Crear tabla cliente*/
+
+CREATE TABLE `cliente` (
+  `idcliente` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `direccion` varchar(100) NOT NULL,
+  `telefono` int(11) DEFAULT NULL,
+  `nif` varchar(9) NOT NULL,
+  `id_cuenta_bancaria` int(11) NOT NULL,
+  PRIMARY KEY (`idcliente`),
+  UNIQUE KEY `id_cuenta_bancaria_UNIQUE` (`id_cuenta_bancaria`),
+  UNIQUE KEY `idcliente_UNIQUE` (`idcliente`),
+  UNIQUE KEY `nif_UNIQUE` (`nif`),
+  CONSTRAINT `fk_cuenta_bancaria` FOREIGN KEY (`id_cuenta_bancaria`) REFERENCES `cuenta_bancaria` (`idcuenta_bancaria`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+
+/*Crear tabla cuenta_bancaria*/
+
+CREATE TABLE `cuenta_bancaria` (
+  `idcuenta_bancaria` int(11) NOT NULL,
+  `banco` int(4) NOT NULL,
+  `sucursal` int(4) NOT NULL,
+  `digito_control` int(2) NOT NULL,
+  `numero_cuenta` int(10) NOT NULL,
+  PRIMARY KEY (`idcuenta_bancaria`),
+  UNIQUE KEY `idcuenta_bancaria_UNIQUE` (`idcuenta_bancaria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+/*Crear tabla detalles*/
+
+CREATE TABLE `detalles` (
+  `iddetalles` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `id_pedido` int(11) NOT NULL,
+  PRIMARY KEY (`iddetalles`),
+  KEY `id_producto_idx` (`id_producto`),
+  KEY `id_pedido_fk_idx` (`id_pedido`),
+  CONSTRAINT `id_pedido_fk` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`idpedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `id_producto_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`idproducto`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+/*Crear tabla pedido*/
+
+CREATE TABLE `pedido` (
+  `idpedido` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(45) NOT NULL,
+  `fecha_creacion` date NOT NULL,
+  `fecha_aceptacion` date DEFAULT NULL,
+  `comentarios` varchar(100) DEFAULT NULL,
+  `id_cliente` int(11) NOT NULL,
+  PRIMARY KEY (`idpedido`),
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`),
+  KEY `fk_id_cliente_idx` (`id_cliente`),
+  CONSTRAINT `fk_id_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`idcliente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+
+/*Crear tabla producto */
+
+
+CREATE TABLE `producto` (
+  `idproducto` int(11) NOT NULL,
+  `fabricante` varchar(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `descripcion` varchar(100) NOT NULL,
+  `precio` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idproducto`),
+  UNIQUE KEY `idproducto_UNIQUE` (`idproducto`),
+  KEY `precio` (`precio`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+

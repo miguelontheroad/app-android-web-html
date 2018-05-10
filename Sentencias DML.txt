@@ -1,0 +1,56 @@
+//cuantas veces se repite un nombre de actor
+
+select first_name, count(*) from actor
+group by first_name;
+
+//nombre y cantidad cuando son más de 1
+
+select first_name, count(*) from actor
+group by first_name
+having count(*)>1
+order by count(*) desc;
+
+
+
+//películas ordenadas por duración
+
+select title, length
+from film
+order by length desc;
+
+//cuya descripción incluye la palabra "drama"
+
+select title, length
+from film
+where description like "%drama%"
+order by length desc;
+
+//nombre pelicula e idioma
+
+select film.title, language.name
+from film
+join language on ();
+
+//Contar cantidad de peliculas en un idioma
+
+select count(film.title), language.name
+from film
+//right// join language on (film.language_id=language.language_id)
+group by language.name;
+
+//añadir lenguaje español
+
+insert into language (language_id, name)
+values ('7', 'español');
+
+SELECT * from language;
+
+//cambiar apellido actor
+
+update actor
+set last_name='LEE-DAVIS'
+where actor_id=4;
+
+select * from actor;
+
+

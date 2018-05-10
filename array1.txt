@@ -1,0 +1,28 @@
+
+EJEMPLO 1
+
+//Dadas 15 notas, presentar la media, la nota más alta y la más baja
+
+Datos
+nota, notaMayor, notaMayor, media Integer
+notas array
+
+Codigo
+
+For i=1 to 15 step 1
+	leer nota
+	while nota<0 OR nota>10
+		Presentar "Error. Introducir nueva nota"
+		leer nota
+	end while
+	notas[i]=nota //guarda la nota en el array notas
+	suma=suma+notas[i]
+		if notaMayor<notas[i]
+			notaMayor=notas[i]
+		end if
+		if notaMenor>notas[i]
+			notaMenor=notas[i]
+		enf if
+end for
+	
+
